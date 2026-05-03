@@ -143,7 +143,7 @@ function AdminRegister() {
       if (!response.ok) {
         setApiError(data.message || 'Registration failed. Please try again.');
       } else {
-        sessionStorage.setItem('currentUser', JSON.stringify(data));
+        sessionStorage.setItem('currentUser', JSON.stringify({ ...data, role: 'admin' }));
         navigate('/qualified-doctors/admin/myaccount');
       }
     } catch {

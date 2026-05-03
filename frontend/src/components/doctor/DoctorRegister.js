@@ -143,7 +143,7 @@ function DoctorRegister() {
       if (!response.ok) {
         setApiError(data.message || 'Registration failed. Please try again.');
       } else {
-        sessionStorage.setItem('currentUser', JSON.stringify(data));
+        sessionStorage.setItem('currentUser', JSON.stringify({ ...data, role: 'doctor' }));
         navigate('/qualified-doctors/doctor/myaccount');
       }
     } catch {
