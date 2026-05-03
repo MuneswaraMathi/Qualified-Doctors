@@ -165,7 +165,7 @@ function PatientRegister() {
             { label: 'Email Address', name: 'email', type: 'email', placeholder: 'jane@example.com' },
             { label: 'Password', name: 'password', type: 'password', placeholder: '••••••••' },
             { label: 'Confirm Password', name: 'confirmPassword', type: 'password', placeholder: '••••••••' },
-            { label: 'Mobile Number', name: 'mobileNumber', type: 'tel', placeholder: '+1 555 000 0000' },
+            { label: 'Mobile Number', name: 'mobileNumber', type: 'tel', placeholder: '+91 987654 43210' },
           ].map(({ label, name, type, placeholder }) => (
             <div key={name} style={styles.formGroup}>
               <label style={styles.label} htmlFor={name}>{label}</label>
