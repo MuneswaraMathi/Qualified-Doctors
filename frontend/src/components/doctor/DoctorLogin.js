@@ -1,6 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
+function EyeIcon({ open }) {
+  return open ? (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  ) : (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+      <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+      <line x1="1" y1="1" x2="23" y2="23" />
+    </svg>
+  );
+}
+
 const styles = {
   page: {
     minHeight: '100vh',
@@ -85,6 +102,22 @@ const styles = {
     color: '#1565c0',
     fontWeight: '600',
   },
+  inputWrapper: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  eyeBtn: {
+    position: 'absolute',
+    right: '12px',
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    color: '#64748b',
+    padding: '0',
+    display: 'flex',
+    alignItems: 'center',
+  },
 };
 
 function DoctorLogin() {
@@ -93,6 +126,7 @@ function DoctorLogin() {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -142,27 +176,42 @@ function DoctorLogin() {
         <p style={styles.subheading}>Sign in to your doctor account</p>
         {apiError && <div style={styles.apiError}>{apiError}</div>}
         <form onSubmit={handleSubmit} noValidate>
-          {[
-            { label: 'Email Address', name: 'email', type: 'email', placeholder: 'jane@example.com' },
-            { label: 'Password', name: 'password', type: 'password', placeholder: '••••••••' },
-          ].map(({ label, name, type, placeholder }) => (
-            <div key={name} style={styles.formGroup}>
-              <label style={styles.label} htmlFor={name}>{label}</label>
+          <div style={styles.formGroup}>
+            <label style={styles.label} htmlFor="email">Email Address</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="jane@example.com"
+              value={form.email}
+              onChange={handleChange}
+              style={{ ...styles.input, borderColor: errors.email ? '#dc2626' : '#cbd5e1' }}
+            />
+            {errors.email && <p style={styles.errorText}>{errors.email}</p>}
+          </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label} htmlFor="password">Password</label>
+            <div style={styles.inputWrapper}>
               <input
-                id={name}
-                name={name}
-                type={type}
-                placeholder={placeholder}
-                value={form[name]}
+                id="password"
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="••••••••"
+                value={form.password}
                 onChange={handleChange}
-                style={{
-                  ...styles.input,
-                  borderColor: errors[name] ? '#dc2626' : '#cbd5e1',
-                }}
+                style={{ ...styles.input, borderColor: errors.password ? '#dc2626' : '#cbd5e1', paddingRight: '40px' }}
               />
-              {errors[name] && <p style={styles.errorText}>{errors[name]}</p>}
+              <button
+                type="button"
+                style={styles.eyeBtn}
+                onClick={() => setShowPassword(v => !v)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                <EyeIcon open={showPassword} />
+              </button>
             </div>
-          ))}
+            {errors.password && <p style={styles.errorText}>{errors.password}</p>}
+          </div>
           <button type="submit" style={styles.button} disabled={loading}>
             {loading ? 'Signing in…' : 'Login'}
           </button>
