@@ -191,6 +191,8 @@ function DoctorRegister() {
         <p style={styles.footer}>
           Already have an account?{' '}
           <Link to="/qualified-doctors/doctor/login" style={styles.link}>Login</Link>
+          {' · '}
+          <Link to="/qualified-doctors/home" style={styles.link}>← Home</Link>
         </p>
       </div>
     </div>

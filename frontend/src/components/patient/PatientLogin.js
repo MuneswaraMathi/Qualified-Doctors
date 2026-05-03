@@ -170,6 +170,8 @@ function PatientLogin() {
         <p style={styles.footer}>
           Don't have an account?{' '}
           <Link to="/qualified-doctors/patient/register" style={styles.link}>Register</Link>
+          {' · '}
+          <Link to="/qualified-doctors/home" style={styles.link}>← Home</Link>
         </p>
       </div>
     </div>

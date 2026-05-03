@@ -86,12 +86,26 @@ function SidebarNav({ basePath, role }) {
               View Professional Details
             </NavLink>
 
+            <div style={styles.sectionHeader}>Address Details</div>
+            <NavLink to={`${basePath}/add-address-details`} style={getLinkStyle}>
+              Add Address Details
+            </NavLink>
+            <NavLink to={`${basePath}/view-address-details`} style={getLinkStyle}>
+              View Address Details
+            </NavLink>
+
             <div style={styles.sectionHeader}>Hospital Details</div>
             <NavLink to={`${basePath}/add-hospital-details`} style={getLinkStyle}>
               Add Hospital Details
             </NavLink>
             <NavLink to={`${basePath}/view-hospital-details`} style={getLinkStyle}>
               View Hospital Details
+            </NavLink>
+            <NavLink to={`${basePath}/add-hospital-address-details`} style={getLinkStyle}>
+              Add Hospital Address Details
+            </NavLink>
+            <NavLink to={`${basePath}/view-hospital-address-details`} style={getLinkStyle}>
+              View Hospital Address Details
             </NavLink>
 
             <div style={styles.sectionHeader}>Appointment Details</div>
@@ -109,6 +123,14 @@ function SidebarNav({ basePath, role }) {
             </NavLink>
             <NavLink to={`${basePath}/view-personal-details`} style={getLinkStyle}>
               View Personal Details
+            </NavLink>
+
+            <div style={styles.sectionHeader}>Address Details</div>
+            <NavLink to={`${basePath}/add-address-details`} style={getLinkStyle}>
+              Add Address Details
+            </NavLink>
+            <NavLink to={`${basePath}/view-address-details`} style={getLinkStyle}>
+              View Address Details
             </NavLink>
 
             <div style={styles.sectionHeader}>Problem Details</div>

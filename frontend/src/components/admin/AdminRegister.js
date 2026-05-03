@@ -191,6 +191,8 @@ function AdminRegister() {
         <p style={styles.footer}>
           Already have an account?{' '}
           <Link to="/qualified-doctors/admin/login" style={styles.link}>Login</Link>
+          {' · '}
+          <Link to="/qualified-doctors/home" style={styles.link}>← Home</Link>
         </p>
       </div>
     </div>
