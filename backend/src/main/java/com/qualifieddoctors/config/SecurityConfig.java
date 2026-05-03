@@ -28,8 +28,11 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/admin/register",
+                    "/admin/login",
                     "/doctor/register",
-                    "/patient/register"
+                    "/doctor/login",
+                    "/patient/register",
+                    "/patient/login"
                 ).permitAll()
                 .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().permitAll()

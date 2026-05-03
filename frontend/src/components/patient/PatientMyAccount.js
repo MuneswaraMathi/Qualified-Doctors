@@ -90,7 +90,7 @@ function PatientMyAccount() {
 
   return (
     <div style={styles.layout}>
-      <SidebarNav basePath="/qualified-doctors/patient" />
+      <SidebarNav basePath="/qualified-doctors/patient" role="patient" />
       <div style={styles.main}>
         <div style={styles.topBar}>
           <button style={styles.logoutBtn} onClick={handleLogout} disabled={loggingOut}>

@@ -1,5 +1,6 @@
 package com.qualifieddoctors.controller;
 
+import com.qualifieddoctors.model.LoginRequest;
 import com.qualifieddoctors.model.RegisterPatient;
 import com.qualifieddoctors.service.PatientService;
 import jakarta.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/patient")
@@ -35,6 +37,18 @@ public class PatientController {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(Map.of("message", "An account with this email already exists."));
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginPatient(@Valid @RequestBody LoginRequest request,
+                                          HttpSession session) {
+        Optional<RegisterPatient> patient = patientService.login(request);
+        if (patient.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Invalid email or password."));
+        }
+        session.setAttribute("patient", patient.get());
+        return ResponseEntity.ok(patient.get());
     }
 
     @GetMapping("/myaccount")

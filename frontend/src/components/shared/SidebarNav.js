@@ -63,7 +63,7 @@ function QDLogo() {
   );
 }
 
-function SidebarNav({ basePath }) {
+function SidebarNav({ basePath, role }) {
   const getLinkStyle = ({ isActive }) => ({
     ...styles.navLink,
     ...(isActive ? styles.navLinkActive : {}),
@@ -76,13 +76,58 @@ function SidebarNav({ basePath }) {
         <span style={styles.logoText}>Qualified Doctors</span>
       </div>
       <nav style={styles.nav}>
-        <div style={styles.sectionHeader}>Personal Details</div>
-        <NavLink to={`${basePath}/add-details`} style={getLinkStyle}>
-          Add Personal Details
-        </NavLink>
-        <NavLink to={`${basePath}/view-details`} style={getLinkStyle}>
-          View Personal Details
-        </NavLink>
+        {role === 'doctor' && (
+          <>
+            <div style={styles.sectionHeader}>Professional Details</div>
+            <NavLink to={`${basePath}/add-professional-details`} style={getLinkStyle}>
+              Add Professional Details
+            </NavLink>
+            <NavLink to={`${basePath}/view-professional-details`} style={getLinkStyle}>
+              View Professional Details
+            </NavLink>
+
+            <div style={styles.sectionHeader}>Hospital Details</div>
+            <NavLink to={`${basePath}/add-hospital-details`} style={getLinkStyle}>
+              Add Hospital Details
+            </NavLink>
+            <NavLink to={`${basePath}/view-hospital-details`} style={getLinkStyle}>
+              View Hospital Details
+            </NavLink>
+
+            <div style={styles.sectionHeader}>Appointment Details</div>
+            <NavLink to={`${basePath}/view-appointment-details`} style={getLinkStyle}>
+              View Appointment Details
+            </NavLink>
+          </>
+        )}
+
+        {role === 'patient' && (
+          <>
+            <div style={styles.sectionHeader}>Personal Details</div>
+            <NavLink to={`${basePath}/add-personal-details`} style={getLinkStyle}>
+              Add Personal Details
+            </NavLink>
+            <NavLink to={`${basePath}/view-personal-details`} style={getLinkStyle}>
+              View Personal Details
+            </NavLink>
+
+            <div style={styles.sectionHeader}>Problem Details</div>
+            <NavLink to={`${basePath}/add-problem-details`} style={getLinkStyle}>
+              Add Problem Details
+            </NavLink>
+            <NavLink to={`${basePath}/view-problem-details`} style={getLinkStyle}>
+              View Problem Details
+            </NavLink>
+
+            <div style={styles.sectionHeader}>Appointment Details</div>
+            <NavLink to={`${basePath}/add-appointment-details`} style={getLinkStyle}>
+              Add Appointment Details
+            </NavLink>
+            <NavLink to={`${basePath}/view-appointment-details`} style={getLinkStyle}>
+              View Appointment Details
+            </NavLink>
+          </>
+        )}
       </nav>
     </div>
   );

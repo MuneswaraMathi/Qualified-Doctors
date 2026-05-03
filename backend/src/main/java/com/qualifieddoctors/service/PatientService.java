@@ -1,11 +1,13 @@
 package com.qualifieddoctors.service;
 
+import com.qualifieddoctors.model.LoginRequest;
 import com.qualifieddoctors.model.RegisterPatient;
 import com.qualifieddoctors.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -34,5 +36,10 @@ public class PatientService {
         patient.setPatientId(generatePatientId());
         patient.setPassword(passwordEncoder.encode(patient.getPassword()));
         return patientRepository.save(patient);
+    }
+
+    public Optional<RegisterPatient> login(LoginRequest request) {
+        return patientRepository.findByEmail(request.getEmail())
+                .filter(patient -> passwordEncoder.matches(request.getPassword(), patient.getPassword()));
     }
 }

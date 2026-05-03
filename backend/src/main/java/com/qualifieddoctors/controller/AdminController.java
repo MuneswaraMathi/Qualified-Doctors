@@ -1,5 +1,6 @@
 package com.qualifieddoctors.controller;
 
+import com.qualifieddoctors.model.LoginRequest;
 import com.qualifieddoctors.model.RegisterAdmin;
 import com.qualifieddoctors.service.AdminService;
 import jakarta.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
@@ -35,6 +37,18 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(Map.of("message", "An account with this email already exists."));
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginAdmin(@Valid @RequestBody LoginRequest request,
+                                        HttpSession session) {
+        Optional<RegisterAdmin> admin = adminService.login(request);
+        if (admin.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Invalid email or password."));
+        }
+        session.setAttribute("admin", admin.get());
+        return ResponseEntity.ok(admin.get());
     }
 
     @GetMapping("/myaccount")

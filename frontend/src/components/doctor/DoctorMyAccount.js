@@ -90,7 +90,7 @@ function DoctorMyAccount() {
 
   return (
     <div style={styles.layout}>
-      <SidebarNav basePath="/qualified-doctors/doctor" />
+      <SidebarNav basePath="/qualified-doctors/doctor" role="doctor" />
       <div style={styles.main}>
         <div style={styles.topBar}>
           <button style={styles.logoutBtn} onClick={handleLogout} disabled={loggingOut}>

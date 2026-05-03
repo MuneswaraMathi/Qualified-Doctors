@@ -189,7 +189,8 @@ function PatientRegister() {
           </button>
         </form>
         <p style={styles.footer}>
-          <Link to="/" style={styles.link}>← Back to Home</Link>
+          Already have an account?{' '}
+          <Link to="/qualified-doctors/patient/login" style={styles.link}>Login</Link>
         </p>
       </div>
     </div>

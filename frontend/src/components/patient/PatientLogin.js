@@ -87,15 +87,9 @@ const styles = {
   },
 };
 
-function DoctorRegister() {
+function PatientLogin() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    mobileNumber: '',
-  });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -107,14 +101,8 @@ function DoctorRegister() {
 
   const validate = () => {
     const newErrors = {};
-    if (!form.fullName.trim()) newErrors.fullName = 'Full name is required.';
     if (!form.email.trim()) newErrors.email = 'Email is required.';
     if (!form.password) newErrors.password = 'Password is required.';
-    if (!form.confirmPassword) newErrors.confirmPassword = 'Please confirm your password.';
-    if (form.password && form.confirmPassword && form.password !== form.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match.';
-    }
-    if (!form.mobileNumber.trim()) newErrors.mobileNumber = 'Mobile number is required.';
     return newErrors;
   };
 
@@ -128,23 +116,17 @@ function DoctorRegister() {
     }
     setLoading(true);
     try {
-      const response = await fetch('/qualified-doctors/doctor/register', {
+      const response = await fetch('/qualified-doctors/patient/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fullName: form.fullName,
-          email: form.email,
-          password: form.password,
-          confirmPassword: form.confirmPassword,
-          mobileNumber: form.mobileNumber,
-        }),
+        body: JSON.stringify({ email: form.email, password: form.password }),
       });
       const data = await response.json();
       if (!response.ok) {
-        setApiError(data.message || 'Registration failed. Please try again.');
+        setApiError(data.message || 'Login failed. Please try again.');
       } else {
-        sessionStorage.setItem('currentUser', JSON.stringify({ ...data, role: 'doctor' }));
-        navigate('/qualified-doctors/doctor/myaccount');
+        sessionStorage.setItem('currentUser', JSON.stringify({ ...data, role: 'patient' }));
+        navigate('/qualified-doctors/patient/myaccount');
       }
     } catch {
       setApiError('Unable to connect to the server. Please try again.');
@@ -156,16 +138,13 @@ function DoctorRegister() {
   return (
     <div style={styles.page}>
       <div style={styles.card}>
-        <h2 style={styles.heading}>👨‍⚕️ Doctor Registration</h2>
-        <p style={styles.subheading}>Create your doctor account to get started</p>
+        <h2 style={styles.heading}>🧑‍🤝‍🧑 Patient Login</h2>
+        <p style={styles.subheading}>Sign in to your patient account</p>
         {apiError && <div style={styles.apiError}>{apiError}</div>}
         <form onSubmit={handleSubmit} noValidate>
           {[
-            { label: 'Full Name', name: 'fullName', type: 'text', placeholder: 'Dr. Jane Doe' },
             { label: 'Email Address', name: 'email', type: 'email', placeholder: 'jane@example.com' },
             { label: 'Password', name: 'password', type: 'password', placeholder: '••••••••' },
-            { label: 'Confirm Password', name: 'confirmPassword', type: 'password', placeholder: '••••••••' },
-            { label: 'Mobile Number', name: 'mobileNumber', type: 'tel', placeholder: '+1 555 000 0000' },
           ].map(({ label, name, type, placeholder }) => (
             <div key={name} style={styles.formGroup}>
               <label style={styles.label} htmlFor={name}>{label}</label>
@@ -185,16 +164,16 @@ function DoctorRegister() {
             </div>
           ))}
           <button type="submit" style={styles.button} disabled={loading}>
-            {loading ? 'Registering…' : 'Register'}
+            {loading ? 'Signing in…' : 'Login'}
           </button>
         </form>
         <p style={styles.footer}>
-          Already have an account?{' '}
-          <Link to="/qualified-doctors/doctor/login" style={styles.link}>Login</Link>
+          Don't have an account?{' '}
+          <Link to="/qualified-doctors/patient/register" style={styles.link}>Register</Link>
         </p>
       </div>
     </div>
   );
 }
 
-export default DoctorRegister;
+export default PatientLogin;

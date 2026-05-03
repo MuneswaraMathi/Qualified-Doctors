@@ -1,10 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './components/HomePage';
+import AdminLogin from './components/admin/AdminLogin';
 import AdminRegister from './components/admin/AdminRegister';
 import AdminMyAccount from './components/admin/AdminMyAccount';
+import DoctorLogin from './components/doctor/DoctorLogin';
 import DoctorRegister from './components/doctor/DoctorRegister';
 import DoctorMyAccount from './components/doctor/DoctorMyAccount';
+import PatientLogin from './components/patient/PatientLogin';
 import PatientRegister from './components/patient/PatientRegister';
 import PatientMyAccount from './components/patient/PatientMyAccount';
 
@@ -31,6 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/qualified-doctors/home" element={<HomePage />} />
+        <Route path="/qualified-doctors/admin/login" element={<AdminLogin />} />
         <Route path="/qualified-doctors/admin/register" element={<AdminRegister />} />
         <Route
           path="/qualified-doctors/admin/myaccount"
@@ -40,6 +44,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/qualified-doctors/doctor/login" element={<DoctorLogin />} />
         <Route path="/qualified-doctors/doctor/register" element={<DoctorRegister />} />
         <Route
           path="/qualified-doctors/doctor/myaccount"
@@ -49,6 +54,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/qualified-doctors/patient/login" element={<PatientLogin />} />
         <Route path="/qualified-doctors/patient/register" element={<PatientRegister />} />
         <Route
           path="/qualified-doctors/patient/myaccount"
