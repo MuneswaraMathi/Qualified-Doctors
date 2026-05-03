@@ -1,0 +1,14 @@
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/controller/AdminController.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/controller/PatientController.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/repository/PatientRepository.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/controller/DoctorController.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/QualifiedDoctorsApplication.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/service/DoctorService.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/service/AdminService.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/repository/AdminRepository.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/model/RegisterAdmin.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/model/RegisterDoctor.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/repository/DoctorRepository.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/model/RegisterPatient.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/service/PatientService.java
+/home/runner/work/Qualified-Doctors/Qualified-Doctors/backend/src/main/java/com/qualifieddoctors/config/SecurityConfig.java
