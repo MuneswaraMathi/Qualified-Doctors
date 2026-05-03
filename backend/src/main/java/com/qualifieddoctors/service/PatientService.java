@@ -24,7 +24,7 @@ public class PatientService {
         long max = 9_999_999_999L;
         String id;
         do {
-            long value = min + (long) (random.nextDouble() * (max - min + 1));
+            long value = min + (random.nextLong() % (max - min + 1) + (max - min + 1)) % (max - min + 1);
             id = String.valueOf(value);
         } while (patientRepository.existsById(id));
         return id;
