@@ -8,9 +8,18 @@ import DoctorMyAccount from './components/doctor/DoctorMyAccount';
 import PatientRegister from './components/patient/PatientRegister';
 import PatientMyAccount from './components/patient/PatientMyAccount';
 
-function ProtectedRoute({ children, redirectTo }) {
-  const user = sessionStorage.getItem('currentUser');
-  if (!user) {
+function ProtectedRoute({ children, redirectTo, requiredRole }) {
+  const raw = sessionStorage.getItem('currentUser');
+  if (!raw) {
+    return <Navigate to={redirectTo} replace />;
+  }
+  try {
+    const user = JSON.parse(raw);
+    if (requiredRole && user.role && user.role.toLowerCase() !== requiredRole.toLowerCase()) {
+      return <Navigate to={redirectTo} replace />;
+    }
+  } catch {
+    sessionStorage.removeItem('currentUser');
     return <Navigate to={redirectTo} replace />;
   }
   return children;
@@ -26,7 +35,7 @@ function App() {
         <Route
           path="/qualified-doctors/admin/myaccount"
           element={
-            <ProtectedRoute redirectTo="/qualified-doctors/admin/register">
+            <ProtectedRoute redirectTo="/qualified-doctors/admin/register" requiredRole="admin">
               <AdminMyAccount />
             </ProtectedRoute>
           }
@@ -35,7 +44,7 @@ function App() {
         <Route
           path="/qualified-doctors/doctor/myaccount"
           element={
-            <ProtectedRoute redirectTo="/qualified-doctors/doctor/register">
+            <ProtectedRoute redirectTo="/qualified-doctors/doctor/register" requiredRole="doctor">
               <DoctorMyAccount />
             </ProtectedRoute>
           }
@@ -44,7 +53,7 @@ function App() {
         <Route
           path="/qualified-doctors/patient/myaccount"
           element={
-            <ProtectedRoute redirectTo="/qualified-doctors/patient/register">
+            <ProtectedRoute redirectTo="/qualified-doctors/patient/register" requiredRole="patient">
               <PatientMyAccount />
             </ProtectedRoute>
           }
