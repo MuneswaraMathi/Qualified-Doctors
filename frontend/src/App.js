@@ -10,6 +10,8 @@ import DoctorMyAccount from './components/doctor/DoctorMyAccount';
 import PatientLogin from './components/patient/PatientLogin';
 import PatientRegister from './components/patient/PatientRegister';
 import PatientMyAccount from './components/patient/PatientMyAccount';
+import PatientPersonalDetail from './components/patient/PatientPersonalDetail';
+import PatientViewPersonalDetail from './components/patient/PatientViewPersonalDetail';
 
 function ProtectedRoute({ children, redirectTo, requiredRole }) {
   const raw = sessionStorage.getItem('currentUser');
@@ -61,6 +63,22 @@ function App() {
           element={
             <ProtectedRoute redirectTo="/qualified-doctors/patient/register" requiredRole="patient">
               <PatientMyAccount />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/qualified-doctors/patient/add-personal-details"
+          element={
+            <ProtectedRoute redirectTo="/qualified-doctors/patient/login" requiredRole="patient">
+              <PatientPersonalDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/qualified-doctors/patient/view-personal-details"
+          element={
+            <ProtectedRoute redirectTo="/qualified-doctors/patient/login" requiredRole="patient">
+              <PatientViewPersonalDetail />
             </ProtectedRoute>
           }
         />

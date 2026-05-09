@@ -1,6 +1,7 @@
 package com.qualifieddoctors.controller;
 
 import com.qualifieddoctors.model.LoginRequest;
+import com.qualifieddoctors.model.PatientPersonalDetails;
 import com.qualifieddoctors.model.RegisterPatient;
 import com.qualifieddoctors.service.PatientService;
 import jakarta.servlet.http.HttpSession;
@@ -65,5 +66,45 @@ public class PatientController {
     public ResponseEntity<?> logout(HttpSession session) {
         session.invalidate();
         return ResponseEntity.ok(Map.of("message", "Logged out successfully."));
+    }
+
+    @PostMapping("/add-personal-details")
+    public ResponseEntity<?> addPersonalDetails(@Valid @RequestBody PatientPersonalDetails details,
+                                                HttpSession session) {
+        RegisterPatient patient = (RegisterPatient) session.getAttribute("patient");
+        if (patient == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Unauthorized: Please log in."));
+        }
+        details.setPatientId(patient.getPatientId());
+        PatientPersonalDetails saved = patientService.addPersonalDetails(details);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+    @GetMapping("/view-personal-details")
+    public ResponseEntity<?> getPersonalDetails(HttpSession session) {
+        RegisterPatient patient = (RegisterPatient) session.getAttribute("patient");
+        if (patient == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Unauthorized: Please log in."));
+        }
+        return patientService.getPersonalDetails(patient.getPatientId())
+                .<ResponseEntity<?>>map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Map.of("message", "No personal details found.")));
+    }
+
+    @PutMapping("/update-personal-details")
+    public ResponseEntity<?> updatePersonalDetails(@Valid @RequestBody PatientPersonalDetails details,
+                                                   HttpSession session) {
+        RegisterPatient patient = (RegisterPatient) session.getAttribute("patient");
+        if (patient == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Unauthorized: Please log in."));
+        }
+        return patientService.updatePersonalDetails(patient.getPatientId(), details)
+                .<ResponseEntity<?>>map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Map.of("message", "No personal details found to update.")));
     }
 }
